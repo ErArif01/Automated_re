@@ -7,8 +7,8 @@
       - labeled
   pull_request:
    types:
-      - opened
-      - labeled
+     - opened
+     - labeled
     
 jobs:
   triage:

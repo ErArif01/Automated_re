@@ -1,0 +1,39 @@
+name: Assign Issues
+
+on:
+  issues:
+    types:
+      - labeled
+
+jobs:
+  assign:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Assign issues
+      run: |
+        for issue in ${{ toJson(github.event.issue.labels) }}; do
+          label=$(echo "$issue" | jq -r .name)
+          
+          # Add conditions for each label you want to handle
+          if [ "$label" == "bug" ]; then
+            assignee="username1"
+          elif [ "$label" == "feature" ]; then
+            assignee="username2"
+          # Add more conditions as needed
+
+          fi
+
+          # Assign the issue to the determined assignee
+          if [ -n "$assignee" ]; then
+            echo "Assigning issue to $assignee"
+            gh issue edit ${{ github.event.issue.number }} --assignee "$assignee"
+          else
+            echo "No matching label found for assignment"
+          fi
+        done
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,6 +1,6 @@
-name: Automated Triage
+ name: Automated Triage
 
- on:
+  on:
    issues:
     types:
     - opened

@@ -33,5 +33,5 @@ jobs:
   -name: Execute Python Scipt
     run:|
         # Replace 'your_script.py with the actual name of your Python script
-python my.py
+    python my.py
     

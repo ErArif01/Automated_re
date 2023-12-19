@@ -1,36 +1,39 @@
- name: Automated Triage
+name: Assign Issues
 
- on:
-   issues:
+on:
+  issues:
     types:
-      - opened
       - labeled
-  pull_request:
-   types:
-     - opened
-     - labeled
-    
+
 jobs:
-  triage:
-   runs-on: ubuntu-latest
+  assign:
+    runs-on: ubuntu-latest
 
-   steps:
-     - name: Checkout Repository
-     - uses: actions/setup-python@v2
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-     - name: Sep up Python
-       uses: actions/setup-python@v2
-       with:
-        
-        python-version: 3.8 # Specify the python version you need
+    - name: Assign issues
+      run: |
+        for issue in ${{ toJson(github.event.issue.labels) }}; do
+          label=$(echo "$issue" | jq -r .name)
+          
+          # Add conditions for each label you want to handle
+          if [ "$label" == "bug" ]; then
+            assignee="username1"
+          elif [ "$label" == "feature" ]; then
+            assignee="username2"
+          # Add more conditions as needed
 
-     - name: Install dependecies
-       run: |
-          python -m pip install --upgrade pip
-          pip install -r requiment.txt # Replace with your reuirment file
+          fi
 
-  -name: Execute Python Scipt
-    run: |
-        # Replace 'your_script.py with the actual name of your Python script
-    python my.py
-    
+          # Assign the issue to the determined assignee
+          if [ -n "$assignee" ]; then
+            echo "Assigning issue to $assignee"
+            gh issue edit ${{ github.event.issue.number }} --assignee "$assignee"
+          else
+            echo "No matching label found for assignment"
+          fi
+        done
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

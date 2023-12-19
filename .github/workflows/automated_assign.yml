@@ -10,7 +10,6 @@ on:
     - opened
     - labeled
 
-
  jobs:
   triage:
    runs-on: ubuntu-latest

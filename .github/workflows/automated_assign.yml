@@ -1,14 +1,14 @@
  name: Automated Triage
 
   on:
-   issues:
-    types:
-    - opened
-    - labeled
-  pull_request:
-   types:
+    issues:
+     types:
      - opened
      - labeled
+   pull_request:
+    types:
+      - opened
+      - labeled
     
  jobs:
   triage:

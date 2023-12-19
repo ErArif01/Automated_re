@@ -1,6 +1,6 @@
 name: Automated Triage
 
-  on:
+on:
    issues:
     types:
       - opened
@@ -30,7 +30,7 @@ name: Automated Triage
           pip install -r requiment.txt # Replace with your reuirment file
 
   -name: Execute Python Scipt
-    run:|
+    run: |
         # Replace 'your_script.py with the actual name of your Python script
     python my.py
     

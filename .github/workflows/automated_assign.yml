@@ -1,16 +1,16 @@
  name: Automated Triage
 
-  on:
-    issues:
-     types:
-     - opened
-     - labeled
-   pull_request:
+ on:
+   issues:
     types:
       - opened
       - labeled
+  pull_request:
+   types:
+      - opened
+      - labeled
     
- jobs:
+jobs:
   triage:
    runs-on: ubuntu-latest
 

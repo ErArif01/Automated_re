@@ -3,8 +3,8 @@ name: Automated Triage
 on:
    issues:
     types:
-      - opened
-      - labeled
+    - opened
+    - labeled
   pull_request:
    types:
      - opened

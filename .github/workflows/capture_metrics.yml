@@ -2,7 +2,7 @@ name: Capture API Metrics
 
 on:
   schedule:
-    - cron: '0 */6 * * *'  # Set the schedule based on your needs, this example runs every 6 hours
+    - cron: '* * * * *'  # Set the schedule based on your needs, this example runs every 6 hours
 
 jobs:
   capture_metrics:
